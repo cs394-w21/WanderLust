@@ -6,9 +6,9 @@ import Typography from "@material-ui/core/Typography";
 const Map = (props) => (
   <>
     <Button variant="contained" color="primary">
-      Hello World
+      Button
     </Button>
-    <Typography>Hello world</Typography>
+    <Typography>Hello World</Typography>
   </>
 );
 
