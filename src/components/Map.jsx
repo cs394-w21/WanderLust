@@ -1,15 +1,48 @@
 import React from "react";
-// import { GoogleMap, Marker } from "react-google-maps";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-const Map = (props) => (
-  <>
-    <Button variant="contained" color="primary">
-      Button
-    </Button>
-    <Typography>Hello World</Typography>
-  </>
-);
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
 
-export default Map;
+const center = {
+  lat: -3.745,
+  lng: -38.523
+};
+
+const Map = () => {
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+  })
+
+  const [map, setMap] = React.useState(null)
+
+  const onLoad = React.useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+    setMap(map)
+  }, [])
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null)
+  }, [])
+
+  return isLoaded ? (
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+      >
+        { /* Child components, such as markers, info windows, etc. */ }
+        <></>
+      </GoogleMap>
+  ) : <></>
+}
+
+export default React.memo(Map)
