@@ -3,6 +3,8 @@ import Map from "../components/Map";
 import Flex from "../components/Flex";
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Instagram from '@material-ui/icons/Instagram';
+import Facebook from '@material-ui/icons/Facebook';
 
 const MapPage = () => {
 
@@ -23,6 +25,10 @@ const MapPage = () => {
           View New Trip
         </Button>
     </Flex>
+    </Flex>
+    <Flex alignItems='center' flexDirection='row' padding='5px'>
+      <Instagram fontSize='large'/>
+      <Facebook fontSize='large'/>
     </Flex>
   </Flex>
   
