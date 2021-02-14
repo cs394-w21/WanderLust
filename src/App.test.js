@@ -1,8 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 
-test("renders hello world", () => {
+test("renders the world at your finger tips", () => {
   const stuff = render(<App />);
-  const linkElement = screen.getByText(/Hello World/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/The World at your Finger Tips/i)).toBeInTheDocument();
 });
