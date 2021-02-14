@@ -1,7 +1,5 @@
 import React from "react";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
 const containerStyle = {
   width: '400px',
@@ -19,7 +17,8 @@ const Map = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   })
 
-  const [map, setMap] = React.useState(null)
+  // eslint-disable-next-line
+  const [_, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
