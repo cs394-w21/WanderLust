@@ -1,13 +1,19 @@
 import React from "react";
 import firebase from "./firebase";
 
+const toRenderableArray = (obj) =>
+  Object.entries(obj).map(([key, val]) => ({
+    id: key,
+    ...val,
+  }));
+
 const useFirebaseLocations = (userId) => {
   // NOTE: If we change the structure of our database later,
   // this hook will need to change as well.
   const [locations, setLocations] = React.useState(null);
   const handleNewLocations = React.useCallback(
     (snap) => {
-      setLocations(snap.val());
+      setLocations(toRenderableArray(snap.val()));
     },
     [setLocations]
   );
