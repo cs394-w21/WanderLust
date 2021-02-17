@@ -1,8 +1,8 @@
 import React from "react";
-import MapPage from "./pages/MapPage";
+import ExplorePage from "./pages/ExplorePage";
 
 const App = () => {
-  return <MapPage />;
+  return <ExplorePage />;
 };
 
 export default App;
