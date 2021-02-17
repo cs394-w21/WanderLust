@@ -1,52 +1,45 @@
 import React, { useState, memo } from "react";
-import {
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
-import useFirebaseLocations from "../utils/useFirebaseLocations";
+import { GoogleMap } from "@react-google-maps/api";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import MapMarker from "./MapMarker";
+import MapPinInfo from "./MapPinInfo";
+import useMap, { mapOptions, containerStyle } from "../utils/useMap";
 
-const containerStyle = {
-  width: "400px",
-  height: "400px",
-};
+const LoadedMap = (props) => {
+  const [activePin, setActivePin] = useState(null);
 
-const center = {
-  lat: 42.0451,
-  lng: -87.6877,
+  const { containerStyle, mapOptions, zoom, onMapLoad, onUnmount } = props;
+
+  return (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      options={mapOptions}
+      zoom={zoom}
+      onLoad={onMapLoad}
+      onUnmount={onUnmount}
+      setActivePin={setActivePin}
+    >
+      <MapMarker setActivePin={setActivePin} />
+      {activePin && (
+        <MapPinInfo activePin={activePin} setActivePin={setActivePin} />
+      )}
+    </GoogleMap>
+  );
 };
 
 const Map = () => {
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  });
-  const { locations, isLocationsLoaded } = useFirebaseLocations("000-test");
-  const [activePin, setActivePin] = React.useState(null);
+  const { loading, onMapLoad, onUnmount } = useMap();
 
-  // eslint-disable-next-line
-  const [_, setMap] = useState(null);
-  return isLoaded && isLocationsLoaded ? (
-    <>
-      <GoogleMap center={center} mapContainerStyle={containerStyle} zoom={10}>
-        <>
-          {locations.map((location) => {
-            return (
-              <Marker
-                key={location.id}
-                onClick={() => {
-                  setActivePin(location);
-                }}
-                position={{ lat: location.lat, lng: location.lng }}
-              />
-            );
-          })}
-        </>
-      </GoogleMap>
-    </>
+  return loading ? (
+    <CircularProgress />
   ) : (
-    <></>
+    <LoadedMap
+      containerStyle={containerStyle}
+      mapOptions={mapOptions}
+      zoom={7}
+      onMapLoad={onMapLoad}
+      onUnmount={onUnmount}
+    />
   );
 };
 

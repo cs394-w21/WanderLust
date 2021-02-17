@@ -12,9 +12,9 @@ const ExplorePage = () => {
       width="100%"
       alignItems="center"
       flexDirection="column"
-      padding="25px"
+      // padding="25px"
     >
-      <Typography variant="h6">The World at your Finger Tips</Typography>
+      {/* <Typography variant="h6">The World at your Finger Tips</Typography> */}
       <Map />
       <Flex alignItems="center" flexDirection="row" padding="5px">
         <Flex padding="5px">
