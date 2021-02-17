@@ -1,5 +1,6 @@
-import React, { useState, memo, useCallback } from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import React, { useState, memo } from "react";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import useFirebaseLocations from "../utils/useFirebaseLocations";
 
 const containerStyle = {
   width: "400px",
@@ -16,31 +17,26 @@ const Map = () => {
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
+  const { locations, isLocationsLoaded } = useFirebaseLocations("000-test");
+  // TODO: Make clicking on a location show useful information.
 
   // eslint-disable-next-line
   const [_, setMap] = useState(null);
-
-  const onLoad = React.useCallback((map) => {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
-
-  const onUnmount = useCallback((map) => {
-    setMap(null);
-  }, []);
-
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      // onLoad={onLoad}
-      // onUnmount={onUnmount}
-    >
-      {/* Child components, such as markers, info windows, etc. */}
-      <></>
-    </GoogleMap>
+  return isLoaded && isLocationsLoaded ? (
+    <>
+      <GoogleMap center={center} mapContainerStyle={containerStyle} zoom={10}>
+        {locations.map((location) => {
+          return (
+            <Marker
+              onClick={() => {
+                console.log(location.desc);
+              }}
+              position={{ lat: location.lat, lng: location.lng }}
+            />
+          );
+        })}
+      </GoogleMap>
+    </>
   ) : (
     <></>
   );
