@@ -31,7 +31,7 @@ const useMap = () => {
   // Set map center to current center
   const onMapLoad = useCallback((map) => {
     // TODO: Change landing screen center
-    if (navigator && navigator.geolocation) {
+    if (navigator?.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           map.setCenter({
@@ -46,7 +46,7 @@ const useMap = () => {
           );
           map.setCenter(defaultCenter);
         },
-        { enableHighAccuracy: false, timeout: 5000 }
+        { enableHighAccuracy: false, timeout: 500 }
       );
     }
   }, []);
