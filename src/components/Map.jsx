@@ -1,48 +1,46 @@
-import React, { useState, memo, useCallback } from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import React, { useState, memo } from "react";
+import { GoogleMap } from "@react-google-maps/api";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import MapMarker from "./MapMarker";
+import MapPinInfo from "./MapPinInfo";
+import useMap, { mapOptions, containerStyle } from "../utils/useMap";
+import Flex from "../components/Flex";
 
-const containerStyle = {
-  width: "400px",
-  height: "400px",
-};
+const LoadedMap = (props) => {
+  const [activePin, setActivePin] = useState(null);
 
-const center = {
-  lat: 42.0451,
-  lng: -87.6877,
+  const { containerStyle, mapOptions, zoom, onMapLoad, onUnmount } = props;
+
+  return (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      options={mapOptions}
+      zoom={zoom}
+      onLoad={onMapLoad}
+      onUnmount={onUnmount}
+      setActivePin={setActivePin}
+    >
+      <MapMarker setActivePin={setActivePin} />
+      {activePin && (
+        <MapPinInfo activePin={activePin} setActivePin={setActivePin} />
+      )}
+    </GoogleMap>
+  );
 };
 
 const Map = () => {
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  });
+  const { loading, onMapLoad, onUnmount } = useMap();
 
-  // eslint-disable-next-line
-  const [_, setMap] = useState(null);
-
-  const onLoad = React.useCallback((map) => {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
-
-  const onUnmount = useCallback((map) => {
-    setMap(null);
-  }, []);
-
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      // onLoad={onLoad}
-      // onUnmount={onUnmount}
-    >
-      {/* Child components, such as markers, info windows, etc. */}
-      <></>
-    </GoogleMap>
+  return loading ? (
+    <Flex justifyContent="center" alignItems="center" width="100%"> <CircularProgress size="100px" /> </Flex>
   ) : (
-    <></>
+    <LoadedMap
+      containerStyle={containerStyle}
+      mapOptions={mapOptions}
+      zoom={7}
+      onMapLoad={onMapLoad}
+      onUnmount={onUnmount}
+    />
   );
 };
 
