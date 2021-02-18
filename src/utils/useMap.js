@@ -13,7 +13,8 @@ const mapOptions = {
   streetViewControl: false,
   rotateControl: false,
   fullscreenControl: false,
-  scaleControl: true,
+  scaleControl: false,
+  zoomControl: true,
 };
 
 // Set map size to screen size
