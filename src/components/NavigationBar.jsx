@@ -9,8 +9,10 @@ import CardTravelIcon from '@material-ui/icons/CardTravel';
 const useStyles = makeStyles({
   root: {
     width: "100vw",
+    height:"8vh",
     backgroundColor: "#757de8",
-    variant: "white"
+    variant: "white",
+    minHeight:"60px",
   },
 });
 

@@ -14,11 +14,12 @@ const ExplorePage = () => {
       width="100%"
       alignItems="center"
       flexDirection="column"
+      height="100%"
       // padding="25px"
     >
       {/* <Typography variant="h6">The World at your Finger Tips</Typography> */}
       <SearchBar/>
-      <Map />
+      <Flex width="100%" height="84vh" ><Map /></Flex>
       <NavigationBar/>
     </Flex>
   );

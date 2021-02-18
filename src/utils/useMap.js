@@ -18,8 +18,8 @@ const mapOptions = {
 
 // Set map size to screen size
 const containerStyle = {
-  width: window.innerWidth,
-  height: window.innerHeight - 150,
+  width: "100%",
+  height: "100%",
 };
 
 const useMap = () => {
