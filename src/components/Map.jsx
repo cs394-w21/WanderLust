@@ -4,6 +4,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import MapMarker from "./MapMarker";
 import MapPinInfo from "./MapPinInfo";
 import useMap, { mapOptions, containerStyle } from "../utils/useMap";
+import Flex from "../components/Flex";
 
 const LoadedMap = (props) => {
   const [activePin, setActivePin] = useState(null);
@@ -31,7 +32,7 @@ const Map = () => {
   const { loading, onMapLoad, onUnmount } = useMap();
 
   return loading ? (
-    <CircularProgress />
+    <Flex justifyContent="center" alignItems="center" width="100%"> <CircularProgress size="100px" /> </Flex>
   ) : (
     <LoadedMap
       containerStyle={containerStyle}
