@@ -1,6 +1,8 @@
 import React from "react";
 import Map from "../components/Map";
 import Flex from "../components/Flex";
+import SearchBar from "../components/SearchBar";
+import NavigationBar from "../components/NavigationBar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Instagram from "@material-ui/icons/Instagram";
@@ -15,23 +17,9 @@ const ExplorePage = () => {
       // padding="25px"
     >
       {/* <Typography variant="h6">The World at your Finger Tips</Typography> */}
+      <SearchBar/>
       <Map />
-      <Flex alignItems="center" flexDirection="row" padding="5px">
-        <Flex padding="5px">
-          <Button variant="contained" color="primary">
-            Create New Trip
-          </Button>
-        </Flex>
-        <Flex padding="5px">
-          <Button variant="contained" color="primary">
-            View New Trip
-          </Button>
-        </Flex>
-      </Flex>
-      <Flex alignItems="center" flexDirection="row" padding="5px">
-        <Instagram fontSize="large" />
-        <Facebook fontSize="large" />
-      </Flex>
+      <NavigationBar/>
     </Flex>
   );
 };
