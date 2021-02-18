@@ -1,13 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import ExploreIcon from '@material-ui/icons/Explore';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
-import { withStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) =>({
   root: {
     width: "100vw",
     height:"8vh",
@@ -16,14 +15,14 @@ const useStyles = makeStyles({
     minHeight:"60px",
   },
   navItem: {
-    color: "white",
+    color: fade(theme.palette.common.white, 0.50),
     "&$selected": {
-      color: "black"
+      color: "white"
     },
   },
   selected: {
   },
-});
+}));
 
 
 
