@@ -6,14 +6,14 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 
-const useStyles = makeStyles((theme) =>({
+const useClass = makeStyles((theme) =>({
   root: {
     width: "100vw",
     backgroundColor: "#757de8",
     variant: "white",
     height:"60px",
   },
-  navItem: {
+  label: {
     color: fade(theme.palette.common.white, 0.50),
     "&$selected": {
       color: "white"
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) =>({
 
 
 export default function SimpleBottomNavigation() {
-  const classes = useStyles();
+  const classes = useClass();
   const [value, setValue] = React.useState(0);
   return (
     <BottomNavigation
@@ -37,9 +37,9 @@ export default function SimpleBottomNavigation() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction classes={classes} className={classes.navItem} label="Explore" icon={<ExploreIcon/>} />
-      <BottomNavigationAction classes={classes} className={classes.navItem} label="Trips" icon={<CardTravelIcon />} />
-      <BottomNavigationAction classes={classes} className={classes.navItem} label="Camera" icon={<AddAPhotoIcon />} />
+      <BottomNavigationAction classes={classes} className={classes.label} label="Explore" icon={<ExploreIcon/>} />
+      <BottomNavigationAction classes={classes} className={classes.label} label="Trips" icon={<CardTravelIcon />} />
+      <BottomNavigationAction classes={classes} className={classes.label} label="Camera" icon={<AddAPhotoIcon />} />
     </BottomNavigation>
   );
 }
