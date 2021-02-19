@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback } from "react";
+import React, { useState, memo } from "react";
 import { GoogleMap, Autocomplete, useGoogleMap } from "@react-google-maps/api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import MapMarker from "./MapMarker";
