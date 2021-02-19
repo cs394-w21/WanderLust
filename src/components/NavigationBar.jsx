@@ -9,10 +9,9 @@ import CardTravelIcon from '@material-ui/icons/CardTravel';
 const useStyles = makeStyles((theme) =>({
   root: {
     width: "100vw",
-    height:"8vh",
     backgroundColor: "#757de8",
     variant: "white",
-    minHeight:"60px",
+    height:"60px",
   },
   navItem: {
     color: fade(theme.palette.common.white, 0.50),
