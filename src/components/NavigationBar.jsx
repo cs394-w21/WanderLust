@@ -1,29 +1,26 @@
-import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import ExploreIcon from '@material-ui/icons/Explore';
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import CardTravelIcon from '@material-ui/icons/CardTravel';
+import React from "react";
+import { fade, makeStyles } from "@material-ui/core/styles";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import ExploreIcon from "@material-ui/icons/Explore";
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import CardTravelIcon from "@material-ui/icons/CardTravel";
 
-const useClass = makeStyles((theme) =>({
+const useClass = makeStyles((theme) => ({
   root: {
     width: "100vw",
     backgroundColor: "#757de8",
     variant: "white",
-    height:"60px",
+    height: "60px",
   },
   label: {
-    color: fade(theme.palette.common.white, 0.50),
+    color: fade(theme.palette.common.white, 0.5),
     "&$selected": {
-      color: "white"
+      color: "white",
     },
   },
-  selected: {
-  },
+  selected: {},
 }));
-
-
 
 export default function SimpleBottomNavigation() {
   const classes = useClass();
@@ -37,9 +34,24 @@ export default function SimpleBottomNavigation() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction classes={classes} className={classes.label} label="Explore" icon={<ExploreIcon/>} />
-      <BottomNavigationAction classes={classes} className={classes.label} label="Trips" icon={<CardTravelIcon />} />
-      <BottomNavigationAction classes={classes} className={classes.label} label="Camera" icon={<AddAPhotoIcon />} />
+      <BottomNavigationAction
+        classes={classes}
+        className={classes.label}
+        label="Explore"
+        icon={<ExploreIcon />}
+      />
+      <BottomNavigationAction
+        classes={classes}
+        className={classes.label}
+        label="Trips"
+        icon={<CardTravelIcon />}
+      />
+      <BottomNavigationAction
+        classes={classes}
+        className={classes.label}
+        label="Camera"
+        icon={<AddAPhotoIcon />}
+      />
     </BottomNavigation>
   );
 }

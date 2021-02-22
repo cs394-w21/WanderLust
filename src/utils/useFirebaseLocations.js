@@ -1,10 +1,18 @@
 import React from "react";
 import firebase from "./firebase";
 
+const DEFAULT_PROFILE_PIC =
+  "https://www.pinclipart.com/picdir/middle/200-2008697_account-customer-login-man-user-icon-login-icon.png";
+
 const joinAccountToPins = (accounts, pins) =>
   Object.entries(pins).map(([key, pin]) => {
     const account = accounts[pin.user];
-    return { id: key, userName: account.name, userPic: account.img, ...pin };
+    return {
+      id: key,
+      userName: account.name,
+      userPic: account.img === "" ? DEFAULT_PROFILE_PIC : account.img,
+      ...pin,
+    };
   });
 
 const useFirebaseLocations = (userId) => {
