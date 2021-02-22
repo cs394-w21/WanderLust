@@ -32,7 +32,11 @@ const MapMarker = ({ setActivePin }) => {
                 setActivePin(location);
               }}
             >
-              <img src={location.userPic} className={classes.img} />
+              <img
+                alt={location.userName}
+                src={location.userPic}
+                className={classes.img}
+              />
             </Flex>
           </OverlayView>
         );
