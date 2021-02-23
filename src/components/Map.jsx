@@ -5,6 +5,7 @@ import MapMarker from "./MapMarker";
 import MapPinInfo from "./MapPinInfo";
 import useMap, { mapOptions, containerStyle } from "../utils/useMap";
 import Flex from "../components/Flex";
+import Trip from "../components/Trip";
 
 const moveMap = (map, place) => {
   const [lat, lng] = [
@@ -63,6 +64,7 @@ const LoadedMap = (props) => {
       onUnmount={onUnmount}
       setActivePin={setActivePin}
     >
+      <Trip />
       <LocationSearch />
       <MapMarker setActivePin={setActivePin} />
       {activePin && (

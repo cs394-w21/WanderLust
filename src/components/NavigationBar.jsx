@@ -2,9 +2,7 @@ import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import ExploreIcon from "@material-ui/icons/Explore";
-import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
-import CardTravelIcon from "@material-ui/icons/CardTravel";
+import useNavbar from "../utils/useNavbarContext";
 
 const useClass = makeStyles((theme) => ({
   root: {
@@ -22,36 +20,26 @@ const useClass = makeStyles((theme) => ({
   selected: {},
 }));
 
-export default function SimpleBottomNavigation() {
+const SimpleBottomNavigation = () => {
   const classes = useClass();
-  const [value, setValue] = React.useState(0);
+  const { tabValue, handleTabChange, NavbarConfig } = useNavbar();
   return (
     <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
+      value={tabValue}
+      onChange={handleTabChange}
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction
-        classes={classes}
-        className={classes.label}
-        label="Explore"
-        icon={<ExploreIcon />}
-      />
-      <BottomNavigationAction
-        classes={classes}
-        className={classes.label}
-        label="Trips"
-        icon={<CardTravelIcon />}
-      />
-      <BottomNavigationAction
-        classes={classes}
-        className={classes.label}
-        label="Camera"
-        icon={<AddAPhotoIcon />}
-      />
+      {NavbarConfig.map((navConfig) => (
+        <BottomNavigationAction
+          classes={classes}
+          className={classes.label}
+          key={navConfig.label}
+          {...navConfig}
+        />
+      ))}
     </BottomNavigation>
   );
 }
+
+export default SimpleBottomNavigation

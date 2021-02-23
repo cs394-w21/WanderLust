@@ -12,14 +12,13 @@ const useClass = makeStyles((theme) => ({
 
 const MapMarker = ({ setActivePin }) => {
   const { locations, isLocationsLoaded } = useFirebaseLocations("000-test");
-  isLocationsLoaded ? console.log(locations[0].userPic) : console.log("");
-
   const classes = useClass();
 
   return isLocationsLoaded
     ? locations.map((location) => {
         return (
           <OverlayView
+            key={location.id}
             position={getLatLng(location)}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >

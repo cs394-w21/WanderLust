@@ -25,7 +25,11 @@ export default function SearchAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <img style={{ maxWidth: "50px", maxHeight: "50px" }} src={W} />
+          <img
+            style={{ maxWidth: "50px", maxHeight: "50px" }}
+            src={W}
+            alt="Logo"
+          />
           <Typography className={classes.title} variant="h6" noWrap>
             anderLust
           </Typography>
