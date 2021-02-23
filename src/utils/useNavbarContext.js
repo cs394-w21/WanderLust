@@ -13,8 +13,7 @@ const useNavbar = () => {
   return ctx;
 };
 
-const useNavbarConfig = (config) => {
-  const { onClickTrips } = config;
+const useNavbarConfig = () => {
   return React.useMemo(() => {
     return [
       {
@@ -24,25 +23,22 @@ const useNavbarConfig = (config) => {
       {
         label: "Trips",
         icon: <CardTravelIcon />,
-        onClick: onClickTrips,
       },
       {
         label: "Camera",
         icon: <AddAPhotoIcon />,
       },
     ];
-  }, [onClickTrips]);
+  }, []);
 }
 
 const useBottomTabs = () => {
-  const [tripsOpen, setTripsOpen] = React.useState(false);
   const [tabValue, setTabValue] = React.useState(0);
+  const NavbarConfig = useNavbarConfig();
   const openTrips = React.useCallback(() => {
-    setTripsOpen(true);
-  }, []);
-  const NavbarConfig = useNavbarConfig({ onClickTrips: openTrips });
+    setTabValue(NavbarConfig.findIndex((el) => el.label === 'Trips'))
+  }, [NavbarConfig]);
   const closeTrips = React.useCallback(() => {
-    setTripsOpen(false);
     setTabValue(NavbarConfig.findIndex((el) => el.label === "Explore"));
   }, [NavbarConfig]);
   const handleTabChange = React.useCallback(
@@ -52,12 +48,12 @@ const useBottomTabs = () => {
     [setTabValue]
   );
   return {
-    tripsOpen,
     openTrips,
     closeTrips,
     handleTabChange,
     tabValue,
     setTabValue,
+    currentTab: NavbarConfig[tabValue]?.label,
     NavbarConfig,
   };
 };

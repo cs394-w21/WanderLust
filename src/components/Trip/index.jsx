@@ -1,11 +1,10 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Fade from "@material-ui/core/Fade";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { useWindowWidth } from "@react-hook/window-size";
 import useNavbar from "../../utils/useNavbarContext.js";
-import { useModalStyles } from './styles';
-import TripRouter from './Router';
+import { useModalStyles } from "./styles";
+import TripRouter from "./Router";
 
 const getPaperWidth = (width) => {
   if (width > 500) return 400;
@@ -14,25 +13,19 @@ const getPaperWidth = (width) => {
 };
 
 const TripOverlay = () => {
-  const { tripsOpen, closeTrips } = useNavbar();
+  const { currentTab } = useNavbar();
   const [activeTrip, setCurrentTrip] = React.useState(null);
   const modalClasses = useModalStyles();
   const width = useWindowWidth();
-  if (tripsOpen === false) return null;
   return (
-    <Fade in={tripsOpen}>
-      <ClickAwayListener onClickAway={closeTrips}>
-        <Paper
-          className={modalClasses.paper}
-          style={{ width: getPaperWidth(width), minHeight: 250 }}
-          elevation={4}
-        >
-          <TripRouter
-            activeTrip={activeTrip}
-            setCurrentTrip={setCurrentTrip}
-          />
-        </Paper>
-      </ClickAwayListener>
+    <Fade in={currentTab === 'Trips'}>
+      <Paper
+        className={modalClasses.paper}
+        style={{ width: getPaperWidth(width), minHeight: 250 }}
+        elevation={4}
+      >
+        <TripRouter activeTrip={activeTrip} setCurrentTrip={setCurrentTrip} />
+      </Paper>
     </Fade>
   );
 };
