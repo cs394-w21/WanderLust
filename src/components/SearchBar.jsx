@@ -1,10 +1,9 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+import W from "./W.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,15 +25,13 @@ export default function SearchAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+          <img
+            style={{ maxWidth: "50px", maxHeight: "50px" }}
+            src={W}
+            alt="Logo"
+          />
           <Typography className={classes.title} variant="h6" noWrap>
-            WanderLust
+            anderLust
           </Typography>
         </Toolbar>
       </AppBar>
