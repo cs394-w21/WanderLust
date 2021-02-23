@@ -17,6 +17,19 @@ const useFirebaseTrips = (userId) => {
     },
     [userId]
   );
+  const makeDeleteTrip = React.useCallback((trip) => {
+    const deleteTrip = async() =>{ 
+      const db = firebase.database().ref(`accounts/${userId}/trips/${trip.id}`);
+      //this path has to change after the database is refactored
+      try {
+        await db.remove();
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    return deleteTrip;
+   }, [userId]);
+
   React.useEffect(() => {
     const db = firebase.database().ref();
     db.on("value", handleNewTrips, window.alert);
@@ -24,7 +37,8 @@ const useFirebaseTrips = (userId) => {
       db.off("value", handleNewTrips);
     };
   }, [handleNewTrips, userId]);
-  return { trips, loading: !Array.isArray(trips) };
+  return { trips, makeDeleteTrip, loading: !Array.isArray(trips) };
 };
+
 
 export default useFirebaseTrips;

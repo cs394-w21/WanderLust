@@ -30,18 +30,20 @@ const TripsLoading = () => {
 };
 
 const TripItem = (props) => {
-  const { trip, onClick } = props;
+  const { trip, onClick, makeDeleteTrip} = props;
   const classes = useModalStyles();
   return (
-    <MenuItem onClick={onClick}>
-      <Flex flexWrap="wrap" width="100%" justifyContent="space-between">
-        <Flex>
+    <Flex flexWrap="wrap" width="100%" justifyContent="space-between">
+    <MenuItem>
+        <Flex onClick={onClick}>
           <NearMeIcon className={classes.nearMe} fontSize="small" />
-          <Typography className={classes.tripName}>{trip.tripName}</Typography>
+          <Typography className={classes.tripName} >{trip.tripName}</Typography>
         </Flex>
-        <TrashCan color="secondary" />
+        </MenuItem>
+        <TrashCan color="secondary" 
+        onClick={makeDeleteTrip(trip)}
+        />
       </Flex>
-    </MenuItem>
   );
 };
 
@@ -73,7 +75,7 @@ const CreateTrip = (props) => {
 };
 
 const TripList = (props) => {
-  const { setCurrentTrip, trips, setCreatingTrip } = props;
+  const { setCurrentTrip, trips, setCreatingTrip, makeDeleteTrip} = props;
   const { closeTrips } = useNavbar();
   const modalClasses = useModalStyles();
   const openCreateTrip = React.useCallback(() => {
@@ -96,6 +98,7 @@ const TripList = (props) => {
         </Flex>
         {trips.map((trip) => (
           <TripItem
+            makeDeleteTrip={makeDeleteTrip}
             key={trip.id}
             trip={trip}
             onClick={() => setCurrentTrip(trip)}
@@ -118,10 +121,11 @@ const TripList = (props) => {
 
 const TripsOverview = (props) => {
   const [creatingTrip, setCreatingTrip] = React.useState(false);
-  const { trips, setCurrentTrip } = props;
+  const { trips, setCurrentTrip, makeDeleteTrip} = props;
   if (creatingTrip) return <CreateTrip setCreatingTrip={setCreatingTrip} />;
   return (
     <TripList
+      makeDeleteTrip={makeDeleteTrip}
       trips={trips}
       setCurrentTrip={setCurrentTrip}
       setCreatingTrip={setCreatingTrip}
@@ -148,14 +152,14 @@ const CurrentTrip = (props) => {
 };
 
 const TripRouter = (props) => {
-  const { trips, loading } = useFirebaseTrips(
+  const { trips, loading, makeDeleteTrip } = useFirebaseTrips(
     "03091a04-81ac-47fd-8b12-1f79baaf823e"
   );
   const [activeTrip, setCurrentTrip] = React.useState(null);
   if (loading) return <TripsLoading />;
   if (activeTrip !== null)
     return <CurrentTrip trip={activeTrip} setCurrentTrip={setCurrentTrip} />;
-  return <TripsOverview trips={trips} setCurrentTrip={setCurrentTrip} />;
+  return <TripsOverview trips={trips} setCurrentTrip={setCurrentTrip} makeDeleteTrip={makeDeleteTrip}/>;
 };
 
 export default TripRouter;
