@@ -6,10 +6,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import TrashCan from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
+import TextField from "@material-ui/core/TextField";
 import useFirebaseTrips from "../../utils/useFirebaseTrips";
+import { Formik, Form, useField } from 'formik';
+import * as Yup from 'yup';
+import FormField from '../FormField';
 
 import { useModalStyles } from "./styles";
 import Flex from "../../components/Flex";
@@ -47,8 +50,42 @@ const TripItem = (props) => {
   );
 };
 
+const tripFormValidation = Yup.object().shape({tripName: Yup.string().required("Title is a required field"),})
+const initialValues = {
+  tripName: "",
+}
+
+
+const CreateTripFields = () => {
+  return (
+    <>
+      <FormField name="tripName" label="Trip Title"/>
+      <Button variant="contained" color="primary" type="submit" style={{marginTop: "15px"}}>Submit</Button>
+    </>
+
+  )
+}
+
+const CreateTripForm = (props) => {
+
+  return (
+    <Formik initialValues={initialValues} 
+      validationSchema={tripFormValidation} 
+      onSubmit={(values) => {
+        props.createTrip(values); 
+        props.setCreatingTrip(false);
+      }}>
+      <Form>
+        <Flex flexDirection="column">
+          <CreateTripFields/>
+        </Flex>
+      </Form>
+    </Formik>
+  )
+}
+
 const CreateTrip = (props) => {
-  const { setCreatingTrip } = props;
+  const { setCreatingTrip, createTrip } = props;
   const classes = useModalStyles();
   return (
     <Fade in>
@@ -66,13 +103,13 @@ const CreateTrip = (props) => {
             onClick={() => setCreatingTrip(null)}
           />
         </Flex>
-        <Flex flexDirection="column">
-          <TextField variant="outlined" label="Trip Title" />
-        </Flex>
+        <CreateTripForm createTrip={createTrip} setCreatingTrip={setCreatingTrip}/>
       </Flex>
     </Fade>
   );
 };
+
+
 
 const TripList = (props) => {
   const { setCurrentTrip, trips, setCreatingTrip, makeDeleteTrip} = props;
@@ -121,8 +158,8 @@ const TripList = (props) => {
 
 const TripsOverview = (props) => {
   const [creatingTrip, setCreatingTrip] = React.useState(false);
-  const { trips, setCurrentTrip, makeDeleteTrip} = props;
-  if (creatingTrip) return <CreateTrip setCreatingTrip={setCreatingTrip} />;
+  const { trips, setCurrentTrip, makeDeleteTrip, createTrip} = props;
+  if (creatingTrip) return <CreateTrip setCreatingTrip={setCreatingTrip} createTrip={createTrip}/>;
   return (
     <TripList
       makeDeleteTrip={makeDeleteTrip}
@@ -152,14 +189,14 @@ const CurrentTrip = (props) => {
 };
 
 const TripRouter = (props) => {
-  const { trips, loading, makeDeleteTrip } = useFirebaseTrips(
+  const { trips, loading, makeDeleteTrip, createTrip } = useFirebaseTrips(
     "03091a04-81ac-47fd-8b12-1f79baaf823e"
   );
   const [activeTrip, setCurrentTrip] = React.useState(null);
   if (loading) return <TripsLoading />;
   if (activeTrip !== null)
     return <CurrentTrip trip={activeTrip} setCurrentTrip={setCurrentTrip} />;
-  return <TripsOverview trips={trips} setCurrentTrip={setCurrentTrip} makeDeleteTrip={makeDeleteTrip}/>;
+  return <TripsOverview trips={trips} setCurrentTrip={setCurrentTrip} makeDeleteTrip={makeDeleteTrip} createTrip={createTrip}/>;
 };
 
 export default TripRouter;

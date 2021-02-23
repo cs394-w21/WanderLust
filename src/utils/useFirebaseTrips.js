@@ -17,6 +17,17 @@ const useFirebaseTrips = (userId) => {
     },
     [userId]
   );
+  
+  const createTrip = React.useCallback( async (trip) => {
+    const db = firebase.database().ref(`accounts/${userId}/trips`);
+    try {
+      await db.push().set(trip);
+    } catch (err) {
+      console.log(err);
+    }
+
+  })
+
   const makeDeleteTrip = React.useCallback((trip) => {
     const deleteTrip = async() =>{ 
       const db = firebase.database().ref(`accounts/${userId}/trips/${trip.id}`);
@@ -37,7 +48,7 @@ const useFirebaseTrips = (userId) => {
       db.off("value", handleNewTrips);
     };
   }, [handleNewTrips, userId]);
-  return { trips, makeDeleteTrip, loading: !Array.isArray(trips) };
+  return { trips, makeDeleteTrip, createTrip, loading: !Array.isArray(trips) };
 };
 
 
