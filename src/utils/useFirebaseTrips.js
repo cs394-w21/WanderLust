@@ -7,39 +7,42 @@ const useFirebaseTrips = (userId) => {
     (snap) => {
       const dbVal = snap.val();
       setTrips(
-        Object.entries(dbVal?.accounts?.[userId]?.trips).map(
-          ([key, value]) => ({
-            id: key,
-            ...value,
-          })
-        )
+        Object.entries(dbVal?.users?.[userId]?.trips).map(([key, value]) => ({
+          id: key,
+          ...value,
+        }))
       );
     },
     [userId]
   );
-  
-  const createTrip = React.useCallback( async (trip) => {
-    const db = firebase.database().ref(`accounts/${userId}/trips`);
-    try {
-      await db.push().set(trip);
-    } catch (err) {
-      console.log(err);
-    }
 
-  })
-
-  const makeDeleteTrip = React.useCallback((trip) => {
-    const deleteTrip = async() =>{ 
-      const db = firebase.database().ref(`accounts/${userId}/trips/${trip.id}`);
-      //this path has to change after the database is refactored
+  const createTrip = React.useCallback(
+    async (trip) => {
+      const db = firebase.database().ref(`users/${userId}/trips`);
       try {
-        await db.remove();
+        await db.push().set(trip);
       } catch (err) {
         console.log(err);
       }
-    };
-    return deleteTrip;
-   }, [userId]);
+    },
+    [userId]
+  );
+
+  const makeDeleteTrip = React.useCallback(
+    (trip) => {
+      const deleteTrip = async () => {
+        const db = firebase.database().ref(`users/${userId}/trips/${trip.id}`);
+        //this path has to change after the database is refactored
+        try {
+          await db.remove();
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      return deleteTrip;
+    },
+    [userId]
+  );
 
   React.useEffect(() => {
     const db = firebase.database().ref();
@@ -50,6 +53,5 @@ const useFirebaseTrips = (userId) => {
   }, [handleNewTrips, userId]);
   return { trips, makeDeleteTrip, createTrip, loading: !Array.isArray(trips) };
 };
-
 
 export default useFirebaseTrips;
