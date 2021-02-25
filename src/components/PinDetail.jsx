@@ -3,6 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import Flex from "./Flex";
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useWindowWidth } from "@react-hook/window-size";
+import W from './W.svg';
 
 const useStyles = makeStyles({
   link: {
@@ -39,7 +40,7 @@ export default function PinDetail(props) {
             paddingRight: "10px",
             paddingBottom: "10px",
           }}
-          src="/favicon.png"
+          src={W}
           alt="Wanderlust"
         />
         <img
