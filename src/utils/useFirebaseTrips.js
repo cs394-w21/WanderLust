@@ -3,18 +3,15 @@ import firebase from "./firebase";
 
 const useFirebaseTrips = (userId) => {
   const [trips, setTrips] = React.useState(null);
-  const handleNewTrips = React.useCallback(
-    (snap) => {
-      const dbVal = snap.val();
-      setTrips(
-        Object.entries(dbVal?.users?.[userId]?.trips).map(([key, value]) => ({
-          id: key,
-          ...value,
-        }))
-      );
-    },
-    [userId]
-  );
+  const handleNewTrips = React.useCallback((snap) => {
+    const trips = snap.val()?.trips || {};
+    setTrips(
+      Object.entries(trips).map(([key, value]) => ({
+        id: key,
+        ...value,
+      }))
+    );
+  }, []);
 
   const createTrip = React.useCallback(
     async (trip) => {
@@ -45,7 +42,7 @@ const useFirebaseTrips = (userId) => {
   );
 
   React.useEffect(() => {
-    const db = firebase.database().ref();
+    const db = firebase.database().ref(`users/${userId}`);
     db.on("value", handleNewTrips, window.alert);
     return () => {
       db.off("value", handleNewTrips);
