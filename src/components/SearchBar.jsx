@@ -1,9 +1,8 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import W from "./W.svg";
+import W from "./Wanderlust.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,23 +17,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchAppBar() {
+const SearchAppBar = () => {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           <img
-            style={{ maxWidth: "50px", maxHeight: "50px" }}
+            style={{ maxWidth: "185px", paddingBottom: '10px' }}
             src={W}
             alt="Logo"
           />
-          <Typography className={classes.title} variant="h6" noWrap>
-            anderLust
-          </Typography>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+
+export default SearchAppBar;
