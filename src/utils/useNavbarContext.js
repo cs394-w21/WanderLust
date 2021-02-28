@@ -35,10 +35,15 @@ const useNavbarConfig = () => {
 const useBottomTabs = () => {
   const [tabValue, setTabValue] = React.useState(0);
   const NavbarConfig = useNavbarConfig();
+
+
+  const openCamera = React.useCallback(() => {
+    setTabValue(NavbarConfig.findIndex((el) => el.label === 'Camera'))
+  }, [NavbarConfig]);
   const openTrips = React.useCallback(() => {
     setTabValue(NavbarConfig.findIndex((el) => el.label === 'Trips'))
   }, [NavbarConfig]);
-  const closeTrips = React.useCallback(() => {
+  const closePopup = React.useCallback(() => {
     setTabValue(NavbarConfig.findIndex((el) => el.label === "Explore"));
   }, [NavbarConfig]);
   const handleTabChange = React.useCallback(
@@ -49,7 +54,8 @@ const useBottomTabs = () => {
   );
   return {
     openTrips,
-    closeTrips,
+    openCamera,
+    closePopup,
     handleTabChange,
     tabValue,
     setTabValue,
