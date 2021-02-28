@@ -9,7 +9,8 @@ import Flex from '../../components/Flex';
 import { useModalStyles } from "../../utils/popupStyles";
 import ImageUploader from 'react-images-upload';
 import { GoogleMap, Autocomplete, useGoogleMap } from "@react-google-maps/api";
- 
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 
 const getPaperWidth = (width) => {
   if (width > 500) return 400;
@@ -42,6 +43,35 @@ const Picture = () => {
       imgExtension={['.jpg', '.gif', '.png', '.gif']}
       maxFileSize={5242880}
     />
+  )
+}
+
+
+
+
+
+
+const CreateCameraForm = (props) => {
+
+  return (
+    <Formik >
+      <Form>
+        <Flex flexDirection="column">
+          <AddPictureFields />
+        </Flex>
+      </Form>
+    </Formik>
+  )
+}
+
+const AddPictureFields = () => {
+  return (
+    <>
+      <Picture />
+      <Flex justifyContent="center"> {/*make this a form*/} 
+        <LocationSearch/>
+      </Flex>
+    </>
   )
 }
 
@@ -90,10 +120,7 @@ const CameraBody = () => {
           </Typography>
           <CancelIcon style={{ cursor: "pointer" }} onClick={closePopup} />
         </Flex>
-        <Picture />
-        <Flex justifyContent="center"> {/*make this a form*/} 
-          <LocationSearch/>
-        </Flex>
+        <CreateCameraForm />
       </Flex>
     </Fade>
   );
