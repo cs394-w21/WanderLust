@@ -9,6 +9,7 @@ import Flex from '../../components/Flex';
 import { useModalStyles } from "../../utils/popupStyles";
 import ImageUploader from 'react-images-upload';
 import { GoogleMap, Autocomplete, useGoogleMap } from "@react-google-maps/api";
+import FormField from "../../components/FormField"
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -68,8 +69,11 @@ const AddPictureFields = () => {
   return (
     <>
       <Picture />
-      <Flex justifyContent="center"> {/*make this a form*/} 
+      <Flex alignItems="center" flexDirection="column"> {/*make this a form*/} 
         <LocationSearch/>
+        <FormField name="date" label="Date" size='small'/>
+        <Flex paddingBottom="10px"></Flex>
+        <FormField name="description" label="Description" size="small" marginBottom="10px"/>
       </Flex>
     </>
   )
@@ -89,13 +93,14 @@ const LocationSearch = () => {
         style={{
           boxSizing: `border-box`,
           border: `1px solid transparent`,
-          width: `240px`,
-          height: `32px`,
+          width: `190px`,
+          height: `40px`,
           borderRadius: `3px`,
           boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
           fontSize: `14px`,
           outline: `none`,
           textOverflow: `ellipses`,
+          marginBottom: '10px',
         }}
       />
     </Autocomplete>

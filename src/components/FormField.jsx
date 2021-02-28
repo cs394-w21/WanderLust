@@ -4,11 +4,12 @@ import TextField from "@material-ui/core/TextField";
 import Alert from '@material-ui/lab/Alert';
 
 
-const FormField = ({name, label}) => {
+const FormField = (props) => {
+    const {label,name} = props
     const [field, meta, helpers] = useField(name);
     return (
       <>
-      <TextField name={name} variant="outlined" label={label} onChange={field.onChange} onBlur={field.onBlur}/>
+      <TextField  {...props} variant="outlined" onChange={field.onChange} onBlur={field.onBlur}/>
       {meta.touched && meta.error ? <Alert severity="error" style={{marginTop: "15px"}}>{meta.error}</Alert> : null}
       </>
     )
