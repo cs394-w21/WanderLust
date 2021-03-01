@@ -14,6 +14,9 @@ import FormField from "../../components/FormField";
 import { Formik, Form, useField } from "formik";
 import Alert from "@material-ui/lab/Alert";
 import * as Yup from "yup";
+import useFirebaseUpload, {
+  initialValues,
+} from "../../utils/useFirebaseUpload";
 
 const getPaperWidth = (width) => {
   if (width > 500) return 400;
@@ -36,39 +39,30 @@ const Picture = () => {
         }}
         withPreview={true}
         label="Max File Size: 5mb, Accepted: jpg, png"
-        imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+        imgExtension={[".jpg", ".png"]}
         maxFileSize={5242880}
+        singleImage
       />
       {meta.touched && meta.error ? (
         <Alert
           severity="error"
           style={{ marginTop: "2px", marginBottom: "15px" }}
         >
-          Please provide a valid picture.
+          Please provide a valid picture. {console.log(meta.error)}.
         </Alert>
       ) : null}
     </>
   );
 };
 
-const initialValues = {
-  picture: null,
-  date: "",
-  description: "",
-  activityType: "",
-  locale: {
-    lat: "",
-    lng: "",
-  },
-};
-
 const validationSchema = Yup.object().shape({
-  picture: Yup.object()
-    .shape({
-      name: Yup.string().required(),
-    })
-    .nullable(),
-  date: Yup.string().required("Please enter a date"),
+  picture: Yup.object().nullable(),
+  date: Yup.string()
+    .matches(
+      /^(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])\/(2[0-9])/,
+      "Date must be in format MM/DD/YY"
+    )
+    .required("Please enter a date"),
   description: Yup.string().required("Please enter a description"),
   activityType: Yup.string().required("Please enter a valid activity type"),
   locale: Yup.object()
@@ -80,13 +74,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const CreateCameraForm = (props) => {
+  const handleSubmit = useFirebaseUpload();
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
+      // validationSchema={validationSchema}
+      onSubmit={handleSubmit}
     >
       <Form>
         <Flex flexDirection="column">

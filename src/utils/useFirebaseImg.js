@@ -9,7 +9,7 @@ const useFirebaseImg = (img) => {
   React.useEffect(() => {
     firebase
       .storage()
-      .child(img)
+      .ref(img)
       .getDownloadURL()
       .then((url) => setImageUrl(url));
 
