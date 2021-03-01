@@ -11,7 +11,7 @@ import ImageUploader from "react-images-upload";
 import { Autocomplete } from "@react-google-maps/api";
 import Button from "@material-ui/core/Button";
 import FormField from "../../components/FormField";
-import { Formik, Form, useField } from "formik";
+import { Formik, Form, useField, useFormikContext } from "formik";
 import Alert from "@material-ui/lab/Alert";
 import * as Yup from "yup";
 import useFirebaseUpload, {
@@ -33,7 +33,6 @@ const Picture = () => {
         withIcon={true}
         buttonText="Choose image"
         onChange={(pictures) => {
-          console.log(pictures[0]);
           helpers.setValue(pictures[0]);
           helpers.setTouched(true);
         }}
@@ -48,7 +47,7 @@ const Picture = () => {
           severity="error"
           style={{ marginTop: "2px", marginBottom: "15px" }}
         >
-          Please provide a valid picture. {console.log(meta.error)}.
+          Please provide a valid picture.
         </Alert>
       ) : null}
     </>
@@ -78,7 +77,7 @@ const CreateCameraForm = (props) => {
   return (
     <Formik
       initialValues={initialValues}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
       <Form>
@@ -200,6 +199,7 @@ const TripOverlay = () => {
   const { currentTab } = useNavbar();
   const modalClasses = useModalStyles();
   const width = useWindowWidth();
+  if (currentTab !== "Camera") return null;
   return (
     <Fade in={currentTab === "Camera"}>
       <Paper

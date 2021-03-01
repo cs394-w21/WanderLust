@@ -3,7 +3,6 @@ import { v4 as genUUID } from "uuid";
 import { useGoogleMap } from "@react-google-maps/api";
 import firebase from "./firebase";
 import useNavbarContext from "./useNavbarContext";
-import { useFormikContext } from "formik";
 
 export const initialValues = {
   picture: undefined,
@@ -28,7 +27,7 @@ const useFirebaseUpload = () => {
   const putImg = async (file) => {
     const imageSnap = await firebase
       .storage()
-      .ref(`user/${genUUID()}`)
+      .ref(`locations/${genUUID()}`)
       .put(file);
 
     const imgUrl = await firebase
@@ -61,7 +60,6 @@ const useFirebaseUpload = () => {
     await uploadPinToFirebase(values, imgUrl);
     gotoPinOnMap(values.locale);
     closePopup();
-    setValues(initialValues);
   };
 
   return handleSubmit;
