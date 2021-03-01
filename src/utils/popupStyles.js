@@ -6,6 +6,18 @@ export const useModalStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  cameraModal: {
+    width: '100%',
+    paddingTop: '60px',
+    height: '80vh',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  cameraPaper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
   paper: {
     position: "absolute",
     bottom: 0,
