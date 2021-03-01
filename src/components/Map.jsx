@@ -6,6 +6,7 @@ import MapPinInfo from "./MapPinInfo";
 import useMap, { mapOptions, containerStyle } from "../utils/useMap";
 import Flex from "../components/Flex";
 import Trip from "../components/Trip";
+import Camera from '../components/Camera';
 
 const moveMap = (map, place) => {
   const [lat, lng] = [
@@ -65,6 +66,7 @@ const LoadedMap = (props) => {
       setActivePin={setActivePin}
     >
       <Trip />
+      <Camera />
       <LocationSearch />
       <MapMarker setActivePin={setActivePin} />
       {activePin && (

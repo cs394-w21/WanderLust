@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import Fade from "@material-ui/core/Fade";
 import { useWindowWidth } from "@react-hook/window-size";
 import useNavbar from "../../utils/useNavbarContext.js";
-import { useModalStyles } from "./styles";
+import { useModalStyles } from "../../utils/popupStyles";
 import TripRouter from "./Router";
 
 const getPaperWidth = (width) => {

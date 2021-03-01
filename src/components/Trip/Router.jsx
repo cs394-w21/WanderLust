@@ -8,13 +8,12 @@ import TrashCan from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
-import TextField from "@material-ui/core/TextField";
 import useFirebaseTrips from "../../utils/useFirebaseTrips";
-import { Formik, Form, useField } from 'formik';
+import { Formik, Form, } from 'formik';
 import * as Yup from 'yup';
 import FormField from '../FormField';
 
-import { useModalStyles } from "./styles";
+import { useModalStyles } from "../../utils/popupStyles";
 import Flex from "../../components/Flex";
 import useNavbar from "../../utils/useNavbarContext.js";
 
@@ -113,7 +112,7 @@ const CreateTrip = (props) => {
 
 const TripList = (props) => {
   const { setCurrentTrip, trips, setCreatingTrip, makeDeleteTrip} = props;
-  const { closeTrips } = useNavbar();
+  const { closePopup } = useNavbar();
   const modalClasses = useModalStyles();
   const openCreateTrip = React.useCallback(() => {
     setCreatingTrip(true);
@@ -131,7 +130,7 @@ const TripList = (props) => {
           <Typography className={modalClasses.header} component="h6">
             My Trips
           </Typography>
-          <CancelIcon style={{ cursor: "pointer" }} onClick={closeTrips} />
+          <CancelIcon style={{ cursor: "pointer" }} onClick={closePopup} />
         </Flex>
         {trips.map((trip) => (
           <TripItem
