@@ -20,7 +20,7 @@ const ActivityIcon = (props) => {
       <IconComponent
         fontSize="large"
         onClick={onClick}
-        color={field.value ? "" : "disabled"}
+        color={field.value ? "inherit" : "disabled"}
       />
     </Flex>
   );
