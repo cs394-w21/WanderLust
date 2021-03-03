@@ -39,7 +39,7 @@ const useFirebaseUpload = () => {
         userName: danName,
         userPic: danPic,
         tags: {
-          restaraunt: values.restaraunt,
+          restaurant: values.restaurant,
           bar: values.bar,
           shop: values.shop,
           activity: values.activity,

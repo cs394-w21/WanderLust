@@ -34,7 +34,7 @@ const ActivitySelect = ({ name }) => {
       <Flex justifyContent="center">
         <ActivityIcon
           IconComponent={RestaurantIcon}
-          name="restaraunt"
+          name="restaurant"
           label="Restaraunt"
         />
         <ActivityIcon IconComponent={LocalBarIcon} name="bar" label="Bar" />
