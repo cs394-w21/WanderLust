@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import Flex from "./Flex";
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useWindowWidth } from "@react-hook/window-size";
-import W from './W.svg';
+import W from "./W.svg";
 
 const useStyles = makeStyles({
   link: {
@@ -24,6 +24,10 @@ const FriendInfo = (props) => {
       <Typography className={styles.date}>{props.date}</Typography>
     </Flex>
   );
+};
+
+const TagsInfo = (props) => {
+  return <Typography></Typography>;
 };
 
 export default function PinDetail(props) {
@@ -57,8 +61,8 @@ export default function PinDetail(props) {
       </Flex>
       <Flex maxWidth="250px">
         <Typography>{props.comment}</Typography>
+        <TagsInfo />
       </Flex>
     </Flex>
   );
 }
-
