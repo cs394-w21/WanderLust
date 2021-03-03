@@ -1,7 +1,6 @@
 import { InfoWindow } from "@react-google-maps/api";
 import { getLatLng } from "../utils/data";
-import PinDetail from "./PinDetail"
-
+import PinWindow from "./PinWindow";
 
 const MapPinInfo = ({ activePin, setActivePin }) => {
   return (
@@ -9,7 +8,7 @@ const MapPinInfo = ({ activePin, setActivePin }) => {
       position={getLatLng(activePin)}
       onCloseClick={() => setActivePin(null)}
     >
-      <PinDetail {...activePin} />
+      <PinWindow {...activePin} />
     </InfoWindow>
   );
 };

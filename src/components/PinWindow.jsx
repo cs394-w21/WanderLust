@@ -2,8 +2,11 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Flex from "./Flex";
 import makeStyles from "@material-ui/styles/makeStyles";
+import AddIcon from "@material-ui/icons/Add";
 import { useWindowWidth } from "@react-hook/window-size";
 import W from "./W.svg";
+import Fab from "@material-ui/core/Fab";
+import AddTripModal from "./AddTripModal";
 
 const useStyles = makeStyles({
   link: {
@@ -30,9 +33,16 @@ const TagsInfo = (props) => {
   return <Typography></Typography>;
 };
 
-export default function PinDetail(props) {
+export default function PinWindow(props) {
   const width = useWindowWidth();
   const size = width > 500 ? 250 : width / 2;
+  const [modalActive, setModalActive] = React.useState(false);
+  const openModal = React.useCallback(() => {
+    setModalActive(true);
+  }, [modalActive]);
+  const closeModal = React.useCallback(() => {
+    setModalActive(false);
+  }, [modalActive]);
 
   return (
     <Flex flexDirection="column" alignItems="center">
@@ -63,6 +73,21 @@ export default function PinDetail(props) {
         <Typography>{props.comment}</Typography>
         <TagsInfo />
       </Flex>
+      <Flex marginBottom="10px">
+        <Fab
+          variant="extended"
+          color="primary"
+          size="medium"
+          onClick={openModal}
+        >
+          Add To Trip
+        </Fab>
+      </Flex>
+      <AddTripModal
+        modalActive={modalActive}
+        closeModal={closeModal}
+        pin={props}
+      />
     </Flex>
   );
 }
