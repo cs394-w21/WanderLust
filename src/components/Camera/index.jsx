@@ -78,7 +78,7 @@ const validationSchema = Yup.object().shape({
     )
     .required("Please enter a date"),
   description: Yup.string().required("Please enter a description"),
-  restaraunt: Yup.boolean().required(""),
+  restaurant: Yup.boolean().required(""),
   bar: Yup.boolean().required(""),
   shop: Yup.boolean().required(""),
   activity: Yup.boolean().required(""),
