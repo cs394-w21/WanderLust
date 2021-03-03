@@ -13,10 +13,25 @@ import Button from "@material-ui/core/Button";
 import FormField from "../../components/FormField";
 import { Formik, Form, useField, useFormikContext } from "formik";
 import Alert from "@material-ui/lab/Alert";
+import ActivityForm from "./ActivityForm";
+
 import * as Yup from "yup";
-import useFirebaseUpload, {
-  initialValues,
-} from "../../utils/useFirebaseUpload";
+import useFirebaseUpload from "../../utils/useFirebaseUpload";
+
+export const initialValues = {
+  picture: undefined,
+  date: "",
+  description: "",
+  restaurant: false,
+  bar: false,
+  activity: false,
+  shop: false,
+  lodging: false,
+  locale: {
+    lat: "",
+    lng: "",
+  },
+};
 
 const getPaperWidth = (width) => {
   if (width > 500) return 400;
@@ -63,7 +78,11 @@ const validationSchema = Yup.object().shape({
     )
     .required("Please enter a date"),
   description: Yup.string().required("Please enter a description"),
-  activityType: Yup.string().required("Please enter a valid activity type"),
+  restaraunt: Yup.boolean().required(""),
+  bar: Yup.boolean().required(""),
+  shop: Yup.boolean().required(""),
+  activity: Yup.boolean().required(""),
+  lodging: Yup.boolean().required(""),
   locale: Yup.object()
     .shape({
       lat: Yup.number().required(),
@@ -97,7 +116,7 @@ const AddPictureInputs = () => {
       <Flex py="8px"></Flex>
       <FormField name="description" label="Description" size="small" />
       <Flex py="8px"></Flex>
-      <FormField name="activityType" label="Activity Type" size="small" />
+      <ActivityForm />
       <Flex py="8px"></Flex>
       <Button variant="contained" color="primary" type="submit">
         Submit

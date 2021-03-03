@@ -4,17 +4,6 @@ import { useGoogleMap } from "@react-google-maps/api";
 import firebase from "./firebase";
 import useNavbarContext from "./useNavbarContext";
 
-export const initialValues = {
-  picture: undefined,
-  date: "",
-  description: "",
-  activityType: "",
-  locale: {
-    lat: "",
-    lng: "",
-  },
-};
-
 const danUUID = "03091a04-81ac-47fd-8b12-1f79baaf823e";
 const danName = "Dan";
 const danPic =
@@ -38,15 +27,25 @@ const useFirebaseUpload = () => {
   };
 
   const uploadPinToFirebase = async (values, imgUrl) => {
-    const newPin = await firebase.database().ref(`locations`).push({
-      date: values.date,
-      comment: values.description,
-      img: imgUrl,
-      lat: values.locale.lat,
-      lng: values.locale.lng,
-      userName: danName,
-      userPic: danPic,
-    });
+    const newPin = await firebase
+      .database()
+      .ref(`locations`)
+      .push({
+        date: values.date,
+        comment: values.description,
+        img: imgUrl,
+        lat: values.locale.lat,
+        lng: values.locale.lng,
+        userName: danName,
+        userPic: danPic,
+        tags: {
+          restaraunt: values.restaraunt,
+          bar: values.bar,
+          shop: values.shop,
+          activity: values.activity,
+          lodging: values.lodging,
+        },
+      });
 
     firebase.database().ref(`users/${danUUID}/locations`).push(newPin.key);
   };

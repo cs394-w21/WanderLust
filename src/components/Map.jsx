@@ -6,13 +6,14 @@ import MapPinInfo from "./MapPinInfo";
 import useMap, { mapOptions, containerStyle } from "../utils/useMap";
 import Flex from "../components/Flex";
 import Trip from "../components/Trip";
-import Camera from '../components/Camera';
+import Camera from "../components/Camera";
 
 const moveMap = (map, place) => {
   const [lat, lng] = [
     place?.geometry?.location?.lat(),
     place?.geometry?.location?.lng(),
   ];
+
   map.setCenter({ lat: lat, lng: lng });
 };
 
