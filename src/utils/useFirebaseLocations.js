@@ -1,8 +1,8 @@
 import React from "react";
 import firebase from "./firebase";
 
-const DEFAULT_PROFILE_PIC =
-  "https://www.pinclipart.com/picdir/middle/200-2008697_account-customer-login-man-user-icon-login-icon.png";
+/*const DEFAULT_PROFILE_PIC =
+  "https://www.pinclipart.com/picdir/middle/200-2008697_account-customer-login-man-user-icon-login-icon.png";*/
 
 const joinAccountToLocations = (locations) =>
   Object.entries(locations).map(([key, location]) => {

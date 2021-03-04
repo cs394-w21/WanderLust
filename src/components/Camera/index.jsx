@@ -11,7 +11,7 @@ import ImageUploader from "react-images-upload";
 import { Autocomplete } from "@react-google-maps/api";
 import Button from "@material-ui/core/Button";
 import FormField from "../../components/FormField";
-import { Formik, Form, useField, useFormikContext } from "formik";
+import { Formik, Form, useField } from "formik";
 import Alert from "@material-ui/lab/Alert";
 import ActivityForm from "./ActivityForm";
 
