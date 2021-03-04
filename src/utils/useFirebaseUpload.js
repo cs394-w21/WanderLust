@@ -1,4 +1,3 @@
-import React from "react";
 import { v4 as genUUID } from "uuid";
 import { useGoogleMap } from "@react-google-maps/api";
 import firebase from "./firebase";

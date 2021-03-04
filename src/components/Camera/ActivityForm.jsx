@@ -9,12 +9,12 @@ import HotelIcon from "@material-ui/icons/Hotel";
 import Flex from "../../components/Flex";
 
 const ActivityIcon = (props) => {
-  const { IconComponent, name, label } = props;
-  const [field, meta, helpers] = useField(name);
+  const { IconComponent, name } = props;
+  const [field, helpers] = useField(name);
   // field.value => true or false
   const onClick = React.useCallback(() => {
     helpers.setValue(!field.value);
-  }, [field.value, helpers, name]);
+  }, [field.value, helpers]);
   return (
     <Flex paddingRight="10px">
       <IconComponent
@@ -27,7 +27,7 @@ const ActivityIcon = (props) => {
   // onClick, change the color and set the field in the form to true
 };
 
-const ActivitySelect = ({ name }) => {
+const ActivitySelect = () => {
   return (
     <Flex flexDirection="column" alignItems="center">
       <Typography>Select Activity Type</Typography>
