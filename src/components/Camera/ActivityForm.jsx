@@ -27,7 +27,7 @@ const ActivityIcon = (props) => {
   // onClick, change the color and set the field in the form to true
 };
 
-const ActivitySelect = () => {
+const ActivitySelect = ({ name }) => {
   return (
     <Flex flexDirection="column" alignItems="center">
       <Typography>Select Activity Type</Typography>
