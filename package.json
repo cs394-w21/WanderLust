@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.0",
+    "cypress": "^6.6.0",
     "firebase": "^8.2.7",
     "fontsource-roboto": "^4.0.0",
     "formik": "^2.2.6",
@@ -26,6 +27,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
+    "cypress:open": "cypress open",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
