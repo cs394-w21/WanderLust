@@ -41,15 +41,15 @@ const useFirebaseTrips = (userId) => {
     [userId]
   );
 
-  const addLocation = React.useCallback(
-    async (location, trip) => {
-      console.log(location, trip);
-      const db = firebase.database().ref(`users/${userId}/trips/${trip}`);
-      try {
-        await db.push().set(location);
-      } catch (err) {
-        console.log(err);
-      }
+  const addLocationToTrips = React.useCallback(
+    async (values) => {
+      console.log(values);
+      // const db = firebase.database().ref(`users/${userId}/trips/${trip}`);
+      // try {
+      //   await db.push().set(values.location);
+      // } catch (err) {
+      //   console.log(err);
+      // }
     },
     [userId]
   );
@@ -65,7 +65,7 @@ const useFirebaseTrips = (userId) => {
     trips,
     makeDeleteTrip,
     createTrip,
-    addLocation,
+    addLocationToTrips,
     loading: !Array.isArray(trips),
   };
 };

@@ -10,10 +10,15 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Flex from "./Flex";
 
 const SingleTrip = ({ trip }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [field, _, helpers] = useField(trip.id);
+  const toggleTrip = React.useCallback(() => {
+    helpers.setValue(!field.value);
+  });
   return (
     <Flex alignItems="center" justifyContent="space-between">
       <Typography>{trip.tripName}</Typography>
-      <Checkbox onChange={() => {}} />
+      <Checkbox onChange={toggleTrip} />
     </Flex>
   );
 };
@@ -30,13 +35,24 @@ const TripSelector = ({ trips }) => {
   );
 };
 
-const handleSubmit = (values) => {
-  console.log(values);
+const makeInitialValues = (trips, pin) => {
+  return trips.reduce(
+    (acc, el) => ({
+      ...acc,
+      [el.id]:
+        trips?.locations?.find((location) => location.id === pin.id) || false,
+    }),
+    {}
+  );
 };
 
-const AddToTripForm = ({ trips }) => {
+const AddToTripForm = ({ trips, pin, addLocationToTrips }) => {
+  const initialValues = {
+    location: pin,
+    ...makeInitialValues(trips, pin),
+  };
   return (
-    <Formik onSubmit={handleSubmit}>
+    <Formik handleSubmit={addLocationToTrips} initialValues={initialValues}>
       <Form>
         <TripSelector trips={trips} />
         <Flex justifyContent="center">
@@ -71,7 +87,7 @@ const useStyles = makeStyles((theme) => {
 
 // TODO: handle how to pre-mark what trips a pin is already a part of
 const AddTripModal = (props) => {
-  const { trips, loading, addLocation } = useFirebaseTrips(
+  const { trips, addLocationToTrips, loading } = useFirebaseTrips(
     "03091a04-81ac-47fd-8b12-1f79baaf823e"
   );
   const styles = useStyles();
@@ -80,7 +96,11 @@ const AddTripModal = (props) => {
     <Modal open={props.modalActive} onClose={props.closeModal}>
       <Paper className={styles.paper}>
         <Typography className={styles.heading}>Add Pin to Trips:</Typography>
-        <AddToTripForm trips={trips} pin={props.pin} />
+        <AddToTripForm
+          trips={trips}
+          pin={props.pin}
+          addLocationToTrips={addLocationToTrips}
+        />
       </Paper>
     </Modal>
   );
