@@ -39,20 +39,25 @@ const makeInitialValues = (trips, pin) => {
   return trips.reduce(
     (acc, el) => ({
       ...acc,
-      [el.id]:
-        trips?.locations?.find((location) => location.id === pin.id) || false,
+      [el.id]: Boolean(el?.locations?.[pin.id]?.enabled),
     }),
     {}
   );
 };
 
-const AddToTripForm = ({ trips, pin, addLocationToTrips }) => {
+const AddToTripForm = ({ trips, pin, addLocationToTrips, closeModal }) => {
   const initialValues = {
     pin,
     ...makeInitialValues(trips, pin),
   };
   return (
-    <Formik onSubmit={addLocationToTrips} initialValues={initialValues}>
+    <Formik
+      onSubmit={(values) => {
+        addLocationToTrips(values);
+        closeModal();
+      }}
+      initialValues={initialValues}
+    >
       <Form>
         <TripSelector trips={trips} />
         <Flex justifyContent="center">
@@ -99,6 +104,7 @@ const AddTripModal = (props) => {
         <AddToTripForm
           trips={trips}
           pin={props.pin}
+          closeModal={props.closeModal}
           addLocationToTrips={addLocationToTrips}
         />
       </Paper>

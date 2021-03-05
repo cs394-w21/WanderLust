@@ -1,6 +1,51 @@
 import React from "react";
 import firebase from "./firebase";
 
+const getLocations = (trip) => {
+  if (!trip?.locations) return [];
+  return Object.entries(trip.locations).filter(
+    ([key, location]) => location?.enabled
+  );
+};
+
+export const useFirebaseTrip = (userId, tripId) => {
+  const [trip, setTrip] = React.useState(null);
+  const loadTrip = React.useCallback(
+    (snap) => {
+      setTrip(snap.val());
+    },
+    [setTrip]
+  );
+  const [tripDbRef] = React.useState(
+    firebase.database().ref(`users/${userId}/trips/${tripId}`)
+  );
+  React.useEffect(() => {
+    tripDbRef.on("value", loadTrip, window.alert);
+    return tripDbRef.off("value", loadTrip);
+  }, [tripDbRef, loadTrip, tripId, userId]);
+  const locations = getLocations(trip);
+  const makeDeleteLocation = React.useCallback(
+    (location) => {
+      const deleteLocation = async () => {
+        const db = firebase
+          .database()
+          .ref(`users/${userId}/trips/${tripId}/locations/${location?.id}`);
+        db.on("value", (snap) => console.log(snap.val()));
+        try {
+          await db.set({ ...location, enabled: false });
+          const val = await tripDbRef.get();
+          setTrip(val.exportVal());
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      return deleteLocation;
+    },
+    [tripDbRef, tripId, userId]
+  );
+  return { trip, loading: !trip, locations, makeDeleteLocation };
+};
+
 const useFirebaseTrips = (userId) => {
   const [trips, setTrips] = React.useState(null);
   const handleNewTrips = React.useCallback((snap) => {
@@ -62,6 +107,23 @@ const useFirebaseTrips = (userId) => {
     },
     [userId]
   );
+
+  // const makeDeleteLocation = React.useCallback(
+  //   (trip, location) => {
+  //     const deleteLocation = async () => {
+  //       const db = firebase
+  //         .database()
+  //         .ref(`users/${userId}/trips/${trip?.id}/locations/${location?.id}`);
+  //       try {
+  //         await db.set({ ...location, enabled: false });
+  //       } catch (err) {
+  //         console.log(err);
+  //       }
+  //     };
+  //     return deleteLocation;
+  //   },
+  //   [userId]
+  // );
 
   React.useEffect(() => {
     const db = firebase.database().ref(`users/${userId}`);
