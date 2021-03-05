@@ -2,7 +2,6 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Flex from "./Flex";
 import makeStyles from "@material-ui/styles/makeStyles";
-import AddIcon from "@material-ui/icons/Add";
 import { useWindowWidth } from "@react-hook/window-size";
 import W from "./W.svg";
 import Fab from "@material-ui/core/Fab";
@@ -39,10 +38,10 @@ export default function PinWindow(props) {
   const [modalActive, setModalActive] = React.useState(false);
   const openModal = React.useCallback(() => {
     setModalActive(true);
-  }, [modalActive]);
+  }, []);
   const closeModal = React.useCallback(() => {
     setModalActive(false);
-  }, [modalActive]);
+  }, []);
 
   return (
     <Flex flexDirection="column" alignItems="center">
