@@ -71,12 +71,7 @@ const Picture = () => {
 
 const validationSchema = Yup.object().shape({
   picture: Yup.object().nullable(),
-  date: Yup.string()
-    .matches(
-      /^(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])\/(2[0-9])/,
-      "Date must be in format MM/DD/YY"
-    )
-    .required("Please enter a date"),
+  date: Yup.string().required("Please enter a date"),
   description: Yup.string().required("Please enter a description"),
   restaurant: Yup.boolean().required(""),
   bar: Yup.boolean().required(""),
