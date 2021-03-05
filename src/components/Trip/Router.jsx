@@ -194,7 +194,6 @@ const NoLocations = () => {
 
 const TripLocation = (props) => {
   const { deleteLocation, location } = props;
-  console.log(deleteLocation);
   return (
     <Flex justifyContent="space-between" width="100%" py="10px">
       <Typography>{location?.comment}</Typography>
