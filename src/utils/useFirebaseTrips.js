@@ -107,23 +107,6 @@ const useFirebaseTrips = (userId) => {
     [userId]
   );
 
-  // const makeDeleteLocation = React.useCallback(
-  //   (trip, location) => {
-  //     const deleteLocation = async () => {
-  //       const db = firebase
-  //         .database()
-  //         .ref(`users/${userId}/trips/${trip?.id}/locations/${location?.id}`);
-  //       try {
-  //         await db.set({ ...location, enabled: false });
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     };
-  //     return deleteLocation;
-  //   },
-  //   [userId]
-  // );
-
   React.useEffect(() => {
     const db = firebase.database().ref(`users/${userId}`);
     db.on("value", handleNewTrips, window.alert);
