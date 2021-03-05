@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useField, Formik, Form } from "formik";
+import { useFormikContext, useField, Formik, Form } from "formik";
 import Modal from "@material-ui/core/Modal";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -14,11 +14,11 @@ const SingleTrip = ({ trip }) => {
   const [field, _, helpers] = useField(trip.id);
   const toggleTrip = React.useCallback(() => {
     helpers.setValue(!field.value);
-  });
+  }, [field.value, helpers]);
   return (
     <Flex alignItems="center" justifyContent="space-between">
       <Typography>{trip.tripName}</Typography>
-      <Checkbox onChange={toggleTrip} />
+      <Checkbox checked={field.value} onChange={toggleTrip} />
     </Flex>
   );
 };
@@ -48,11 +48,11 @@ const makeInitialValues = (trips, pin) => {
 
 const AddToTripForm = ({ trips, pin, addLocationToTrips }) => {
   const initialValues = {
-    location: pin,
+    pin,
     ...makeInitialValues(trips, pin),
   };
   return (
-    <Formik handleSubmit={addLocationToTrips} initialValues={initialValues}>
+    <Formik onSubmit={addLocationToTrips} initialValues={initialValues}>
       <Form>
         <TripSelector trips={trips} />
         <Flex justifyContent="center">

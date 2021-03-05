@@ -43,13 +43,22 @@ const useFirebaseTrips = (userId) => {
 
   const addLocationToTrips = React.useCallback(
     async (values) => {
-      console.log(values);
-      // const db = firebase.database().ref(`users/${userId}/trips/${trip}`);
-      // try {
-      //   await db.push().set(values.location);
-      // } catch (err) {
-      //   console.log(err);
-      // }
+      const { pin: location } = values;
+      const trips = Object.keys(values)
+        .filter((val) => val !== "pin")
+        .map((key) => ({ id: key, enabled: values[key] }));
+      for (let i = 0; i < trips.length; i++) {
+        const db = firebase
+          .database()
+          .ref(`users/${userId}/trips/${trips[i].id}/locations`);
+        try {
+          await db
+            .child(location.id)
+            .set({ ...location, enabled: trips[i].enabled });
+        } catch (err) {
+          console.log(err);
+        }
+      }
     },
     [userId]
   );
