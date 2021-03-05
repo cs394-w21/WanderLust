@@ -225,7 +225,6 @@ const CurrentTrip = (props) => {
     "03091a04-81ac-47fd-8b12-1f79baaf823e",
     id
   );
-  console.log(locations);
   const modalClasses = useModalStyles();
   if (loading) return null;
   return (

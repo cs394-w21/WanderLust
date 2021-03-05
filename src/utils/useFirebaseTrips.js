@@ -30,7 +30,6 @@ export const useFirebaseTrip = (userId, tripId) => {
         const db = firebase
           .database()
           .ref(`users/${userId}/trips/${tripId}/locations/${location?.id}`);
-        db.on("value", (snap) => console.log(snap.val()));
         try {
           await db.set({ ...location, enabled: false });
           const val = await tripDbRef.get();
