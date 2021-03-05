@@ -1,6 +1,7 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Fade from "@material-ui/core/Fade";
+import dayjs from "dayjs";
 import Typography from "@material-ui/core/Typography";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { useWindowWidth } from "@react-hook/window-size";
@@ -71,7 +72,14 @@ const Picture = () => {
 
 const validationSchema = Yup.object().shape({
   picture: Yup.object().nullable(),
-  date: Yup.string().required("Please enter a date"),
+  date: Yup.string()
+    .test("isValid", "Dates must be in format MM/DD/YY", (value) => {
+      return (
+        new RegExp(/^\d{1,2}\/\d{1,2}\/\d{2}$/).test(value) &&
+        dayjs(value, "MM/DD/YY", true).isValid()
+      );
+    })
+    .required("Please enter a date"),
   description: Yup.string().required("Please enter a description"),
   restaurant: Yup.boolean().required(""),
   bar: Yup.boolean().required(""),
