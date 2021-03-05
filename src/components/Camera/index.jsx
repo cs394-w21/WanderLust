@@ -11,7 +11,7 @@ import ImageUploader from "react-images-upload";
 import { Autocomplete } from "@react-google-maps/api";
 import Button from "@material-ui/core/Button";
 import FormField from "../../components/FormField";
-import { Formik, Form, useField, useFormikContext } from "formik";
+import { Formik, Form, useField } from "formik";
 import Alert from "@material-ui/lab/Alert";
 import ActivityForm from "./ActivityForm";
 
@@ -78,7 +78,7 @@ const validationSchema = Yup.object().shape({
     )
     .required("Please enter a date"),
   description: Yup.string().required("Please enter a description"),
-  restaraunt: Yup.boolean().required(""),
+  restaurant: Yup.boolean().required(""),
   bar: Yup.boolean().required(""),
   shop: Yup.boolean().required(""),
   activity: Yup.boolean().required(""),

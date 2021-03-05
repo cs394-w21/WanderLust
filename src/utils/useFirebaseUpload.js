@@ -1,4 +1,3 @@
-import React from "react";
 import { v4 as genUUID } from "uuid";
 import { useGoogleMap } from "@react-google-maps/api";
 import firebase from "./firebase";
@@ -39,7 +38,7 @@ const useFirebaseUpload = () => {
         userName: danName,
         userPic: danPic,
         tags: {
-          restaraunt: values.restaraunt,
+          restaurant: values.restaurant,
           bar: values.bar,
           shop: values.shop,
           activity: values.activity,

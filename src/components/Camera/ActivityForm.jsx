@@ -9,12 +9,13 @@ import HotelIcon from "@material-ui/icons/Hotel";
 import Flex from "../../components/Flex";
 
 const ActivityIcon = (props) => {
-  const { IconComponent, name, label } = props;
-  const [field, meta, helpers] = useField(name);
+  const { IconComponent, name } = props;
+  // eslint-disable-next-line no-unused-vars
+  const [field, _, helpers] = useField(name);
   // field.value => true or false
   const onClick = React.useCallback(() => {
     helpers.setValue(!field.value);
-  }, [field.value, helpers, name]);
+  }, [field.value, helpers]);
   return (
     <Flex paddingRight="10px">
       <IconComponent
@@ -34,7 +35,7 @@ const ActivitySelect = ({ name }) => {
       <Flex justifyContent="center">
         <ActivityIcon
           IconComponent={RestaurantIcon}
-          name="restaraunt"
+          name="restaurant"
           label="Restaraunt"
         />
         <ActivityIcon IconComponent={LocalBarIcon} name="bar" label="Bar" />
