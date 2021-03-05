@@ -10,7 +10,8 @@ import Flex from "../../components/Flex";
 
 const ActivityIcon = (props) => {
   const { IconComponent, name } = props;
-  const [field, helpers] = useField(name);
+  // eslint-disable-next-line no-unused-vars
+  const [field, _, helpers] = useField(name);
   // field.value => true or false
   const onClick = React.useCallback(() => {
     helpers.setValue(!field.value);
