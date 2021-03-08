@@ -18,6 +18,7 @@ import FormField from "../FormField";
 import { useModalStyles } from "../../utils/popupStyles";
 import Flex from "../../components/Flex";
 import useNavbar from "../../utils/useNavbarContext.js";
+import { userUUID } from "../../utils/userData";
 
 const TripsLoading = () => {
   return (
@@ -222,7 +223,7 @@ const CurrentTrip = (props) => {
     setCurrentTrip,
   } = props;
   const { trip, locations, loading, makeDeleteLocation } = useFirebaseTrip(
-    "03091a04-81ac-47fd-8b12-1f79baaf823e",
+    userUUID,
     id
   );
   const modalClasses = useModalStyles();
@@ -251,7 +252,7 @@ const CurrentTrip = (props) => {
 
 const TripRouter = (props) => {
   const { trips, loading, makeDeleteTrip, createTrip } = useFirebaseTrips(
-    "03091a04-81ac-47fd-8b12-1f79baaf823e"
+    userUUID
   );
   const [activeTrip, setCurrentTrip] = React.useState(null);
   if (loading) return <TripsLoading />;

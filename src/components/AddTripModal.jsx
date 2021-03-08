@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import useFirebaseTrips from "../utils/useFirebaseTrips";
 import Checkbox from "@material-ui/core/Checkbox";
 import Flex from "./Flex";
+import { userUUID } from "../utils/userData";
 
 const SingleTrip = ({ trip }) => {
   // eslint-disable-next-line no-unused-vars
@@ -92,9 +93,7 @@ const useStyles = makeStyles((theme) => {
 
 // TODO: handle how to pre-mark what trips a pin is already a part of
 const AddTripModal = (props) => {
-  const { trips, addLocationToTrips, loading } = useFirebaseTrips(
-    "03091a04-81ac-47fd-8b12-1f79baaf823e"
-  );
+  const { trips, addLocationToTrips, loading } = useFirebaseTrips(userUUID);
   const styles = useStyles();
   if (loading) return null;
   return (

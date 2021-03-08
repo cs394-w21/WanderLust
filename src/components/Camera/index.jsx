@@ -9,13 +9,13 @@ import useNavbar from "../../utils/useNavbarContext.js";
 import Flex from "../../components/Flex";
 import { useModalStyles } from "../../utils/popupStyles";
 import ImageUploader from "react-images-upload";
-import { Autocomplete } from "@react-google-maps/api";
+import { Autocomplete, useGoogleMap } from "@react-google-maps/api";
 import Button from "@material-ui/core/Button";
 import FormField from "../../components/FormField";
-import { Formik, Form, useField } from "formik";
+import { Formik, Form, useField, useFormikContext } from "formik";
 import Alert from "@material-ui/lab/Alert";
 import ActivityForm from "./ActivityForm";
-
+import exifr from "exifr";
 import * as Yup from "yup";
 import useFirebaseUpload from "../../utils/useFirebaseUpload";
 
@@ -40,21 +40,52 @@ const getPaperWidth = (width) => {
   return width - 90;
 };
 
-const Picture = () => {
+const getPlaceFromLocale = async (locale) => {
+  const response = await fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${locale.lat},${locale.lng}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+  );
+  const json = await response.json();
+
+  return json?.results[0];
+};
+
+const renameLocaleFields = (locale) =>
+  locale
+    ? {
+        lat: locale.latitude,
+        lng: locale.longitude,
+      }
+    : { lat: null, lng: null };
+
+const Picture = ({ setAddressValue }) => {
   // eslint-disable-next-line no-unused-vars
-  const [_, meta, helpers] = useField("picture");
+  const [_, meta, helpersPicture] = useField("picture");
+  const [__, ____, helpersLocale] = useField("locale");
   return (
     <>
       <ImageUploader
         withIcon={true}
         buttonText="Choose image"
-        onChange={(pictures) => {
-          helpers.setValue(pictures[0]);
-          helpers.setTouched(true);
+        onChange={async (pictures) => {
+          try {
+            const gpsLocale = await exifr.gps(pictures[0]);
+            const locale = renameLocaleFields(gpsLocale);
+
+            helpersPicture.setValue(pictures[0]);
+            helpersPicture.setTouched(true);
+
+            helpersLocale.setValue(locale);
+            helpersLocale.setTouched(true);
+            if (!locale.lat || !locale.lng) return;
+            const place = await getPlaceFromLocale(locale);
+            setAddressValue(place.formatted_address);
+          } catch (err) {
+            console.error(err);
+          }
         }}
         withPreview={true}
         label="Max File Size: 5mb, Accepted: jpg, png"
-        imgExtension={[".jpg", ".png"]}
+        imgExtension={[".jpg", ".png", ".jpeg", ".heic"]}
         maxFileSize={5242880}
         singleImage
       />
@@ -111,10 +142,13 @@ const CreateCameraForm = (props) => {
   );
 };
 
-const AddPictureInputs = () => {
+const AddPictureInputs = ({ addressValue, setAddressValue }) => {
   return (
     <Flex alignItems="center" flexDirection="column">
-      <LocationSearch />
+      <LocationSearch
+        addressValue={addressValue}
+        setAddressValue={setAddressValue}
+      />
       <FormField name="date" label="Date" size="small" />
       <Flex py="8px"></Flex>
       <FormField name="description" label="Description" size="small" />
@@ -129,10 +163,14 @@ const AddPictureInputs = () => {
 };
 
 const AddPictureFields = () => {
+  const [addressValue, setAddressValue] = React.useState("");
   return (
     <>
-      <Picture />
-      <AddPictureInputs />
+      <Picture setAddressValue={setAddressValue} />
+      <AddPictureInputs
+        addressValue={addressValue}
+        setAddressValue={setAddressValue}
+      />
     </>
   );
 };
@@ -145,7 +183,7 @@ const getLatLng = (place) => {
   };
 };
 
-const LocationSearch = () => {
+const LocationSearch = ({ addressValue, setAddressValue }) => {
   const [autocomplete, setAutocomplete] = React.useState(3);
   // eslint-disable-next-line no-unused-vars
   const [_, meta, helpers] = useField("locale");
@@ -158,15 +196,17 @@ const LocationSearch = () => {
           const val = getLatLng(autocomplete.getPlace());
           helpers.setValue(val);
           helpers.setTouched(true);
+          setAddressValue(autocomplete.getPlace().formatted_address);
         }}
       >
         <input
           type="text"
           placeholder="Search for Location"
-          onChange={() => {
-            if (!meta.touched) return;
+          onChange={(event) => {
             helpers.setValue({ lat: null, lng: null });
+            setAddressValue(event?.target?.value);
           }}
+          value={addressValue}
           style={{
             boxSizing: `border-box`,
             border: `1px solid transparent`,

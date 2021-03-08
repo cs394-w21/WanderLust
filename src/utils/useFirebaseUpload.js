@@ -2,11 +2,7 @@ import { v4 as genUUID } from "uuid";
 import { useGoogleMap } from "@react-google-maps/api";
 import firebase from "./firebase";
 import useNavbarContext from "./useNavbarContext";
-
-const danUUID = "03091a04-81ac-47fd-8b12-1f79baaf823e";
-const danName = "Dan";
-const danPic =
-  "https://firebasestorage.googleapis.com/v0/b/wanderlust-708c7.appspot.com/o/Dan_Profile_Pic.png?alt=media&token=fe1caeca-0be7-4d7b-83d9-a67d894988f1";
+import { userUUID, userName, userPic } from "./userData";
 
 const useFirebaseUpload = () => {
   const map = useGoogleMap();
@@ -35,8 +31,8 @@ const useFirebaseUpload = () => {
         img: imgUrl,
         lat: values.locale.lat,
         lng: values.locale.lng,
-        userName: danName,
-        userPic: danPic,
+        userName: userName,
+        userPic: userPic,
         tags: {
           restaurant: values.restaurant,
           bar: values.bar,
@@ -46,7 +42,7 @@ const useFirebaseUpload = () => {
         },
       });
 
-    firebase.database().ref(`users/${danUUID}/locations`).push(newPin.key);
+    firebase.database().ref(`users/${userUUID}/locations`).push(newPin.key);
   };
 
   const gotoPinOnMap = (loc) => {
