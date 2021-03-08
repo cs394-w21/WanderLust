@@ -61,7 +61,7 @@ const Picture = ({ setAddressValue }) => {
   /* eslint-disable no-unused-vars */
   const [_, meta, helpersPicture] = useField("picture");
   const [__, ____, helpersLocale] = useField("locale");
-  const [value, ______, helpersDate] = useField("date");
+  const [_____, ______, helpersDate] = useField("date");
   /* eslint-enable no-unused-vars */
   return (
     <>
