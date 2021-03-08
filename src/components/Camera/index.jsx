@@ -195,7 +195,6 @@ const LocationSearch = ({ addressValue, setAddressValue }) => {
         onPlaceChanged={() => {
           const val = getLatLng(autocomplete.getPlace());
           helpers.setValue(val);
-          console.log(val);
           helpers.setTouched(true);
           setAddressValue(autocomplete.getPlace().formatted_address);
         }}
