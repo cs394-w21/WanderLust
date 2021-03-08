@@ -61,6 +61,7 @@ const Picture = ({ setAddressValue }) => {
   /* eslint-disable no-unused-vars */
   const [_, meta, helpersPicture] = useField("picture");
   const [__, ____, helpersLocale] = useField("locale");
+  const [value, ______, helpersDate] = useField("date");
   /* eslint-enable no-unused-vars */
   return (
     <>
@@ -79,7 +80,9 @@ const Picture = ({ setAddressValue }) => {
             helpersLocale.setTouched(true);
             if (!locale.lat || !locale.lng) return;
             const place = await getPlaceFromLocale(locale);
+            const exifrData = await exifr.parse(pictures[0]);
             setAddressValue(place.formatted_address);
+            helpersDate.setValue(dayjs(exifrData.DateTimeOriginal).format("MM/DD/YY"));
           } catch (err) {
             console.error(err);
           }

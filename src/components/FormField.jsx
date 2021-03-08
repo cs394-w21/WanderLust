@@ -11,6 +11,7 @@ const FormField = (props) => {
       <TextField
         {...props}
         variant="outlined"
+        value={field.value}
         onChange={field.onChange}
         onBlur={field.onBlur}
       />
