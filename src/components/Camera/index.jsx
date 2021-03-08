@@ -9,10 +9,10 @@ import useNavbar from "../../utils/useNavbarContext.js";
 import Flex from "../../components/Flex";
 import { useModalStyles } from "../../utils/popupStyles";
 import ImageUploader from "react-images-upload";
-import { Autocomplete, useGoogleMap } from "@react-google-maps/api";
+import { Autocomplete } from "@react-google-maps/api";
 import Button from "@material-ui/core/Button";
 import FormField from "../../components/FormField";
-import { Formik, Form, useField, useFormikContext } from "formik";
+import { Formik, Form, useField } from "formik";
 import Alert from "@material-ui/lab/Alert";
 import ActivityForm from "./ActivityForm";
 import exifr from "exifr";
@@ -58,9 +58,10 @@ const renameLocaleFields = (locale) =>
     : { lat: null, lng: null };
 
 const Picture = ({ setAddressValue }) => {
-  // eslint-disable-next-line no-unused-vars
+  /* eslint-disable no-unused-vars */
   const [_, meta, helpersPicture] = useField("picture");
   const [__, ____, helpersLocale] = useField("locale");
+  /* eslint-enable no-unused-vars */
   return (
     <>
       <ImageUploader
