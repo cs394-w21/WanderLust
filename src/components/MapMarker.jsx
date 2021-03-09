@@ -27,7 +27,6 @@ const MapMarker = ({ setActivePin }) => {
               height={60}
               marginLeft={-3}
               marginTop={-3}
-              onMouseEnter={() => setActivePin(location)}
               onClick={() => setActivePin(location)}
             >
               <img
