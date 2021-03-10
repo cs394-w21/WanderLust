@@ -7,6 +7,8 @@ import Flex from "../components/Flex";
 const useClass = makeStyles((theme) => ({
   img: {
     borderRadius: "50%",
+    width: "60px",
+    height:"60px"
   },
 }));
 
@@ -23,8 +25,6 @@ const MapMarker = ({ setActivePin }) => {
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >
             <Flex
-              width={60}
-              height={60}
               marginLeft={-3}
               marginTop={-3}
               onClick={() => setActivePin(location)}
@@ -32,7 +32,7 @@ const MapMarker = ({ setActivePin }) => {
               <img
                 alt={location.userName}
                 src={location.userPic}
-                className={classes.img}
+               className={classes.img}
               />
             </Flex>
           </OverlayView>
