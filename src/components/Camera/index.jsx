@@ -4,7 +4,7 @@ import Fade from "@material-ui/core/Fade";
 import dayjs from "dayjs";
 import Typography from "@material-ui/core/Typography";
 import CancelIcon from "@material-ui/icons/Cancel";
-import { useWindowWidth } from "@react-hook/window-size";
+import { useWindowSize } from "@react-hook/window-size";
 import useNavbar from "../../utils/useNavbarContext.js";
 import Flex from "../../components/Flex";
 import { useModalStyles } from "../../utils/popupStyles";
@@ -82,7 +82,9 @@ const Picture = ({ setAddressValue }) => {
             const place = await getPlaceFromLocale(locale);
             const exifrData = await exifr.parse(pictures[0]);
             setAddressValue(place.formatted_address);
-            helpersDate.setValue(dayjs(exifrData.DateTimeOriginal).format("MM/DD/YY"));
+            helpersDate.setValue(
+              dayjs(exifrData.DateTimeOriginal).format("MM/DD/YY")
+            );
           } catch (err) {
             console.error(err);
           }
@@ -264,7 +266,7 @@ const CameraBody = () => {
 const TripOverlay = () => {
   const { currentTab } = useNavbar();
   const modalClasses = useModalStyles();
-  const width = useWindowWidth();
+  const [width, height] = useWindowSize();
   if (currentTab !== "Camera") return null;
   return (
     <Fade in={currentTab === "Camera"}>
@@ -272,8 +274,8 @@ const TripOverlay = () => {
         className={modalClasses.paper}
         style={{
           width: getPaperWidth(width),
-          minHeight: 250,
-          maxHeight: 500,
+          minHeight: Math.min(250, height - 240),
+          maxHeight: height - 240,
           overflowY: "scroll",
         }}
         elevation={4}
