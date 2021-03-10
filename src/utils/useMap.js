@@ -15,6 +15,8 @@ const mapOptions = {
   fullscreenControl: false,
   scaleControl: false,
   zoomControl: true,
+  clickableIcons: false,
+  minZoom: 4,
 };
 
 // Set map size to screen size
