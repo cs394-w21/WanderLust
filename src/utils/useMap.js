@@ -35,6 +35,7 @@ const useMap = () => {
   // Set map center to current center
   const onMapLoad = useCallback((map) => {
     // TODO: Change landing screen center
+    map.setClickableIcons(false);
     if (navigator?.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
