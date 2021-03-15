@@ -91,7 +91,6 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-// TODO: handle how to pre-mark what trips a pin is already a part of
 const AddTripModal = (props) => {
   const { trips, addLocationToTrips, loading } = useFirebaseTrips(userUUID);
   const styles = useStyles();
