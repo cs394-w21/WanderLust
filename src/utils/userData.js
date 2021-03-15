@@ -1,6 +1,6 @@
-const userUUID = "8771fefd-268a-4a4d-b1af-b2961f2beefc";
-const userName = "Clark";
+const userUUID = "da0b04ef-4b8e-4b5c-bb5f-d3480047ef01";
+const userName = "Morty Schaprio";
 const userPic =
-  "https://firebasestorage.googleapis.com/v0/b/wanderlust-708c7.appspot.com/o/clarkg.jpg?alt=media&token=c8ec8e80-6a09-41ef-b0c4-e96b4a368d24";
+  "https://www.northwestern.edu/president/images/photos/bio-page.jpg";
 
 export { userUUID, userName, userPic };

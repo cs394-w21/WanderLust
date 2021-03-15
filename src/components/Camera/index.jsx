@@ -90,7 +90,7 @@ const Picture = ({ setAddressValue }) => {
           }
         }}
         withPreview={true}
-        label="Max File Size: 5mb, Accepted: jpg, png"
+        label="Max File Size: 5mb, Accepted: jpg, png, jpeg, heic"
         imgExtension={[".jpg", ".png", ".jpeg", ".heic"]}
         maxFileSize={5242880}
         singleImage

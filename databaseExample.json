@@ -1,0 +1,20 @@
+{
+  "locations": {
+    "-MUkiVoLBOPLbzQ069FR": {
+      "comment": "Northwestern University",
+      "date": "6/1/20",
+      "img": "https://common.northwestern.edu/v8/css/images/northwestern-thumb.jpg",
+      "lat": 42.055984,
+      "lng": -87.675171,
+      "userName": "Morty Schaprio",
+      "userPic": "https://www.northwestern.edu/president/images/photos/bio-page.jpg"
+    }
+  },
+  "users": {
+    "da0b04ef-4b8e-4b5c-bb5f-d3480047ef01": {
+      "locations": ["MUkiVoLBOPLbzQ069FR"],
+      "userName": "Morty Schaprio",
+      "userPic": "https://www.northwestern.edu/president/images/photos/bio-page.jpg"
+    }
+  }
+}
